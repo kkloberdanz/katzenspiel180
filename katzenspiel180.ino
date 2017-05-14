@@ -21,18 +21,18 @@ Servo y_servo;
 int pos = 0;    // variable to store the servo position 
 int laser = 13;
 
-const int X_INC =  20;
+const int X_INC =   1;
 const int X_MIN =   0;
 const int X_MAX =  90; 
 
 const int Y_INC =   1;
-const int Y_MIN =  0;
-const int Y_MAX =  70;
+const int Y_MIN =   0;
+const int Y_MAX =   60;
 
 const int X_MIN_TRGT_STEP = 40;
 const int Y_MIN_TRGT_STEP = 40;
 
-const int DELAY = 30;
+const int DELAY = 25;
 
 int x, y;
 
