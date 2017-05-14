@@ -26,13 +26,13 @@ const int X_MIN =   0;
 const int X_MAX =  90; 
 
 const int Y_INC =   1;
-const int Y_MIN =  20;
-const int Y_MAX =  90;
+const int Y_MIN =  0;
+const int Y_MAX =  70;
 
 const int X_MIN_TRGT_STEP = 40;
 const int Y_MIN_TRGT_STEP = 40;
 
-const int DELAY = 15;
+const int DELAY = 30;
 
 int x, y;
 
@@ -42,12 +42,6 @@ void setup()
   y_servo.attach(9);  // attaches the servo on pin 9 to the servo object
   x_servo.attach(10);
   pinMode(laser, OUTPUT);
-  
-  Serial.begin(9600);  
-  Serial.println("--- Start Serial Monitor SEND_RCVE ---");
-  Serial.println(" Type in Box above, . ");
-  Serial.println("(Decimal)(Hex)(Character)");  
-  Serial.println(); 
 } 
 
 void sweep_x_forward() {
@@ -87,39 +81,6 @@ void sweep_x_backward() {
   }
 }
 
-void goto_pos(int x_trgt, int y_trgt) {
-  x_servo.write(x_trgt);
-  y_servo.write(y_trgt);
-  delay(DELAY);
-}
-
-int abs_diff(int a, int b) {
-  return abs(a) - abs(b);
-}
-
-int get_rand_x() {
-  int rand_x = random(X_MIN, X_MAX);
-  
-  int diff = abs_diff(rand_x, x);
-  while ( diff < X_MIN_TRGT_STEP) {
-    rand_x = random(X_MIN, X_MAX);
-    diff = abs_diff(rand_x, x);
-  }
-  Serial.println(rand_x);
-  Serial.println(x);
-  Serial.println();
-  return rand_x;
-}
-
-int get_rand_y() {
-  int rand_y = random(Y_MIN, Y_MAX);
-  
-  while (abs_diff(rand_y, y) < Y_MIN_TRGT_STEP) {
-    rand_y = random(Y_MIN, Y_MAX);
-  }
-  return rand_y;
-}
-
 // how_long: seconds to play
 void play_time(int how_long) {
   int i;
@@ -129,20 +90,9 @@ void play_time(int how_long) {
     sweep_x_backward();
   }
   digitalWrite(laser, LOW);
-/*
-  int i;
-  for (i = 0; i < how_long; ++i) {
-    int x_rnd = get_rand_x();
-    int y_rnd = get_rand_y();
-    goto_pos(x_rnd, y_rnd);
-    delay(1000);
-  }
-  sweep_x_forward();
-  sweep_x_backward();
-*/
 }
 
-void rest(int how_long) {
+void rest(long how_long) {
   int i;
   for (i = 0; i < how_long; ++i) {
     delay(1000);
@@ -151,6 +101,6 @@ void rest(int how_long) {
  
 void loop()
 {  
-  play_time(5);
-  rest(10);
+  play_time(2);
+  delay(43200000);
 } 
